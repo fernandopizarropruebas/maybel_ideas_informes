@@ -30,7 +30,7 @@ CREATE TABLE products (
     price_cup NUMERIC(10,2),
     price_mlc NUMERIC(10,2),
     price_mxn NUMERIC(10,2),
-    price_canad NUMERIC(10,2),
+    price_cad NUMERIC(10,2),
     price_brl NUMERIC(10,2),
     price_zelle NUMERIC(10,2),
     price_transfer_cup NUMERIC(10,2),
@@ -90,7 +90,7 @@ CREATE TABLE exchange_rates (
     rate_brl NUMERIC(10,6) NOT NULL,
     rate_zelle NUMERIC(10,6) NOT NULL,
     rate_transfer_cup NUMERIC(10,6) NOT NULL,
-    rate_card_cup NUMERIC(10,6) NOT NULL,
+    rate_clasic_usd NUMERIC(10,6) NOT NULL,
     valid_from TIMESTAMP NOT NULL DEFAULT NOW(),
     valid_to TIMESTAMP, -- NULL = tasas actuales
     created_by UUID REFERENCES users(id),

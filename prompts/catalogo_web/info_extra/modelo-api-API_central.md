@@ -325,7 +325,7 @@ GET /products/{id}
       "brl": 750.00,
       "zelle": 150.00,
       "transfer_cup": 4800.00,
-      "card_cup": 5000.00
+      "clasic_usd": 5000.00
     },
     "images": [
       {
@@ -383,7 +383,7 @@ POST /products
     "brl": 4000.00,
     "zelle": 800.00,
     "transfer_cup": 25600.00,
-    "card_cup": 26666.00
+    "clasic_usd": 26666.00
   }
 }
 ```
@@ -605,11 +605,15 @@ POST /products/{product_id}/images
 **Acceso:** Solo Master
 
 **Headers:** 
-- `Content-Type: multipart/form-data`
+- `Content-Type: application/json`
 
-**Request (form-data):**
-- `file`: archivo de imagen
-- `position`: número de orden (1, 2, 3...)
+**Request:**
+```json
+{
+  "file_path": "/uploads/products/uuid-prod/1.webp",
+  "position": 1
+}
+```
 
 **Response:**
 ```json
@@ -626,9 +630,11 @@ POST /products/{product_id}/images
 ```
 
 **Lógica:**
-1. Master guarda el archivo en `/uploads/products/{product_id}/`
-2. Notifica a la API la ruta del archivo
-3. API registra en `product_images`
+1. **Master sube el archivo** al file storage del servidor en `/uploads/products/{product_id}/`
+2. **Master notifica a la API** con la ruta del archivo guardado
+3. **API registra** la ruta en la tabla `product_images`
+
+**Nota importante:** El archivo ya ha sido guardado en el servidor por parte del Master. La API solo registra la ruta en la base de datos, NO maneja la carga del archivo.
 
 ---
 
@@ -706,7 +712,7 @@ GET /exchange-rates/current
       "brl": 0.200000,
       "zelle": 1.000000,
       "transfer_cup": 0.031000,
-      "card_cup": 0.030000
+      "clasic_usd": 0.030000
     },
     "valid_from": "2024-12-15T10:00:00Z",
     "notes": "Actualización semanal"
@@ -735,7 +741,7 @@ POST /exchange-rates
     "brl": 0.19,
     "zelle": 1.00,
     "transfer_cup": 0.029,
-    "card_cup": 0.028
+    "clasic_usd": 0.028
   },
   "notes": "Actualización semanal - 22 Diciembre 2024"
 }
